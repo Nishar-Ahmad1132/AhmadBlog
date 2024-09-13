@@ -1,0 +1,70 @@
+.sign-up-sec{
+    height: 100%;
+    width: 100%;
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 1rem 5rem;
+}
+
+.sign-up-logo {
+  white-space: nowrap;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.sign-up-logo-ah {
+  border-radius: 1rem;
+  color: white;
+  background: linear-gradient(to right, #667eea, #a855f7, #f66d9b);
+}
+
+.su-left-para{
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+
+.left{
+    width: 50%;
+    /* border: 1px solid red; */
+}
+.right{
+    width: 50%;
+    /* border: 1px solid red; */
+}
+
+.sign-up-form{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.is-log-in{
+    display: flex;
+    gap: .5rem;
+    font-size: small;
+    margin-top: .5rem;
+}
+
+@media (max-width: 770px) {
+  .sign-up-logo  {
+    font-size: 2rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+  }
+
+
+  .sign-up-sec{
+    flex-direction: column;
+  }
+
+  .left{
+    width: 100%;
+  }
+  .right{
+    width: 100%;
+  }
+}
