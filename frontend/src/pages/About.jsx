@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+import { Link } from "react-router-dom";
 export default function About() {
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-800 flex items-center justify-center py-12">
@@ -8,11 +9,11 @@ export default function About() {
         </h1>
         <div className="text-lg text-gray-700 dark:text-gray-300 space-y-6">
           <p>
-            Welcome to Nishar Ahmad's Blog! Created by Nishar Ahmad, this blog is a
-            personal project aimed at sharing valuable insights and ideas about
-            technology and coding. As a passionate developer, I love writing
-            about the latest trends in web development, app development, and
-            programming languages.
+            Welcome to Nishar Ahmad's Blog! Created by Nishar Ahmad, this blog
+            is a personal project aimed at sharing valuable insights and ideas
+            about technology and coding. As a passionate developer, I love
+            writing about the latest trends in web development, app development,
+            and programming languages.
           </p>
 
           <p>
@@ -33,12 +34,12 @@ export default function About() {
         <div className="mt-8 text-center">
           <p className="text-gray-600 dark:text-gray-400 text-lg">
             Interested in contributing or have suggestions? <br />
-            <a
-              href="/contact"
+            <Link
+              to="/contact"
               className="text-teal-500 dark:text-teal-400 hover:underline"
             >
               Get in touch with me
-            </a>
+            </Link>
           </p>
         </div>
       </div>

@@ -31,14 +31,6 @@ export default function CallToAction() {
               Flutter Development
             </a>
           </Button>
-          <Button
-            gradientDuoTone="orangeToRed"
-            className="rounded-tl-xl rounded-bl-none"
-          >
-            <a href="/search?searchTerm=mern" rel="noopener noreferrer">
-              Web Development
-            </a>
-          </Button>
         </div>
       </div>
       <div className="flex-1 flex justify-center items-center p-6">

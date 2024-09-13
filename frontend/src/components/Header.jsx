@@ -51,84 +51,99 @@ export default function Header() {
   };
 
   return (
-    <Navbar className="border-b-2">
-      <Link to="/" className="logo flex flex-col items-center sm:flex-row">
-        <span className="logo-ah">Nishar Ahmad`s </span>
-        Blog
-      </Link>
-      <form onSubmit={handleSubmit} className="flex">
-        <TextInput
-          type="text"
-          placeholder="Search..."
-          rightIcon={AiOutlineSearch}
-          className="hidden lg:inline min-w-[400px] max-w-[500px]"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </form>
-      <Button className="search-btn lg:hidden" pill>
-        <AiOutlineSearch />
-      </Button>
-      <div className="flex gap-3 md:order-2">
-        <Button
-          className=""
-          color="gray"
-          pill
-          onClick={() => dispatch(toggleTheme())}
-        >
-          {theme === "light" ? <FaSun /> : <FaMoon />}
-        </Button>
-        {currentUser ? (
-          <Dropdown
-            arrowIcon={false}
-            inline
-            label={<Avatar rounded img={currentUser.profilePicture} />}
-            className="custom-dropdown"
+    <Navbar className="border-b-2 px-1 py-2 md:px-6 md:py-4">
+      <div className="flex items-center justify-between w-full">
+        <Link to="/" className="logo flex flex-col items-center sm:flex-row">
+          <span className="logo-ah">Nishar Ahmad`s </span>
+          Blog
+        </Link>
+        <div className="flex items-center space-x-4">
+          <form
+            onSubmit={handleSubmit}
+            className="hidden lg:flex flex-1 max-w-md"
           >
-            <Dropdown.Header className="flex flex-col gap-2 p-4 bg-teal-500 border-b-2 border-gray-200 shadow-sm">
-              <div className="flex items-center gap-2">
-                <Avatar
-                  rounded
-                  img={currentUser.profilePicture}
-                  className="w-12 h-12"
-                />
-                <div>
-                  <span className="text-black block text-md font-semibold">
-                    {currentUser.name}
-                  </span>
-                  <span className="block text-sm text-black">
-                    @{currentUser.username}
-                  </span>
-                </div>
-              </div>
-              <span className="block text-sm text-black truncate">
-                {currentUser.email}
-              </span>
-            </Dropdown.Header>
+            <TextInput
+              type="text"
+              placeholder="Search..."
+              rightIcon={AiOutlineSearch}
+              className="hidden lg:inline min-w-[400px] max-w-[500px]"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </form>
 
-            <Link to={"dashboard?tab=profile"}>
-              <Dropdown.Item className=" px-4 py-2">
-                Profile
-              </Dropdown.Item>
-            </Link>
+          {/* Keep theme toggle icon visible on all screen sizes */}
+          {/* <Button
+            className="block"
+            color="gray"
+            pill
+            onClick={() => dispatch(toggleTheme())}
+          >
+            {theme === "light" ? <FaSun /> : <FaMoon />}
+          </Button> */}
 
-            <Dropdown.Divider className="my-1 border-t border-gray-200" />
+          <div className="flex flex-col sm:flex-row  items-center justify-center space-x-3">
+            <div className="flex gap-5">
+              <Button
+                className="block"
+                color="gray"
+                pill
+                onClick={() => dispatch(toggleTheme())}
+              >
+                {theme === "light" ? <FaSun /> : <FaMoon />}
+              </Button>
+              {currentUser ? (
+                <Dropdown
+                  arrowIcon={false}
+                  inline
+                  label={<Avatar rounded img={currentUser.profilePicture} />}
+                  className="custom-dropdown"
+                >
+                  <Dropdown.Header className="flex flex-col gap-2 p-4 bg-teal-500 border-b-2 border-gray-200 shadow-sm">
+                    <div className="flex items-center gap-2">
+                      <Avatar
+                        rounded
+                        img={currentUser.profilePicture}
+                        className="w-12 h-12"
+                      />
+                      <div>
+                        <span className="text-black block text-md font-semibold">
+                          {currentUser.name}
+                        </span>
+                        <span className="block text-sm text-black">
+                          @{currentUser.username}
+                        </span>
+                      </div>
+                    </div>
+                    <span className="block text-sm text-black truncate">
+                      {currentUser.email}
+                    </span>
+                  </Dropdown.Header>
 
-            <Dropdown.Item
-              className="hover:bg-red-500 hover:text-white transition-all duration-300 ease-in-out px-4 py-2"
-              onClick={handleSignout}
-            >
-              Sign out
-            </Dropdown.Item>
-          </Dropdown>
-        ) : (
-          <Link to="/sign-in">
-            <Button gradientDuoTone="purpleToBlue" outline>
-              SIgn In
-            </Button>
-          </Link>
-        )}
-        <Navbar.Toggle />
+                  <Link to={"dashboard?tab=profile"}>
+                    <Dropdown.Item className="px-4 py-2">Profile</Dropdown.Item>
+                  </Link>
+
+                  <Dropdown.Divider className="my-1 border-t border-gray-200" />
+
+                  <Dropdown.Item
+                    className="hover:bg-red-500 hover:text-white transition-all duration-300 ease-in-out px-4 py-2"
+                    onClick={handleSignout}
+                  >
+                    Sign out
+                  </Dropdown.Item>
+                </Dropdown>
+              ) : (
+                <Link to="/sign-in">
+                  <Button gradientDuoTone="purpleToBlue" outline>
+                    Sign In
+                  </Button>
+                </Link>
+              )}
+            </div>
+            <Navbar.Toggle />
+          </div>
+        </div>
       </div>
       <Navbar.Collapse>
         <Navbar.Link active={path === "/"} as={"div"}>
@@ -165,7 +180,6 @@ export default function Header() {
             Contact
           </Link>
         </Navbar.Link>
-
       </Navbar.Collapse>
     </Navbar>
   );

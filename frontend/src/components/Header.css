@@ -1,7 +1,7 @@
 .logo {
   align-self: center;
   white-space: nowrap;
-  font-size: 0.875rem;
+  font-size: 1.5rem;
   line-height: 1.25rem;
 }
 
@@ -21,14 +21,12 @@
   height: 2.5rem;
 }
 
-/* General Navbar Item Styling */
 .nav-item {
   position: relative;
   padding-bottom: 10px;
   font-weight: 500;
 }
 
-/* Add teal underline when active */
 .active-link::after {
   content: "";
   position: absolute;
@@ -40,14 +38,11 @@
   transition: width 0.3s ease-in-out;
 }
 
-
-
-
-
-@media (min-width: 640px) {
+@media (max-width: 640px) {
   .logo {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
+    font-size: 1rem;
     font-weight: 600;
+    padding: 0;
+    margin: 0;
   }
 }
