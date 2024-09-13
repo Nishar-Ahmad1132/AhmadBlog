@@ -29,9 +29,9 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Use environment variable for port or default to 4000
-// const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4000;
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log(`Server running on port ...`);
 });
 
