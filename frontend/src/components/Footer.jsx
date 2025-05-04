@@ -23,7 +23,7 @@ export default function FooterCom() {
                 <Footer.Title title="About" />
                 <Footer.LinkGroup col>
                   <Footer.Link
-                    href="/portfolio"
+                    href="https://www.nisharahmad.online/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
