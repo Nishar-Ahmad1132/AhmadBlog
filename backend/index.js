@@ -17,7 +17,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    console.log("Mongodb Connected..");
+    console.log("Mongodb Successfully Connected");
   })
   .catch((e) => {
     console.log("Error occurred ", e);
@@ -32,7 +32,7 @@ app.use(cookieParser());
 const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ...`);
+  console.log(`Server running on port ${PORT}`);
 });
 
 app.use("/api/user", userRouter);

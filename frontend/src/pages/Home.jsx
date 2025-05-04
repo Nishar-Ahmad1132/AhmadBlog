@@ -23,7 +23,7 @@ export default function Home() {
       <div className="flex flex-col  lg:flex-row items-center justify-center lg:justify-between p-6 lg:p-12 max-w-6xl mx-auto">
         <div className="flex-1 lg:mr-8 text-center lg:text-left">
           <h1 className="text-4xl font-bold text-gray-800 dark:text-white lg:text-5xl">
-            Welcome to Nishar Ahmad's Blog
+            Welcome to Nishar Ahmad's Blog Website
           </h1>
           <p className="text-gray-600 dark:text-gray-300 text-base lg:text-lg mt-4">
             Discover a range of articles and tutorials on web development, app
