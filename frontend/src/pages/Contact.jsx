@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import emailjs from "@emailjs/browser";
-import React, { useState } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import contactImage from "../assets/Aa12.jpg";
 
@@ -23,11 +23,19 @@ const Contact = () => {
 
     emailjs
       .send(
-        "service_yfjktim",
-        "template_imkj20g",
+        "service_aa9nqej",
+        "template_w1cco3h",
         formData,
-        "aU7ahcaqW3Gg7kx3i"
+        "9F4hXUoxGCikqs7io"
       )
+      .then((response) => {
+        return emailjs.send(
+          "service_aa9nqej",
+          "template_vm8jm7n",
+          formData,
+          "9F4hXUoxGCikqs7io"
+        );
+      })
       .then((response) => {
         toast.success("Message sent successfully! Thanks for contacting us", {
           position: "top-center",
