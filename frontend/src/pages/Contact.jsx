@@ -26,14 +26,14 @@ const Contact = () => {
         "service_aa9nqej",
         "template_w1cco3h",
         formData,
-        "9F4hXUoxGCikqs7io"
+        "OcFF4qbJnWvhqwDWZ"
       )
       .then((response) => {
         return emailjs.send(
           "service_aa9nqej",
           "template_vm8jm7n",
           formData,
-          "9F4hXUoxGCikqs7io"
+          "OcFF4qbJnWvhqwDWZ"
         );
       })
       .then((response) => {
