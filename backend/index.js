@@ -1,8 +1,8 @@
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
-import cors from "cors";
 
 import authRouter from "./api/routes/auth.route.js";
 import commentRoutes from "./api/routes/comment.route.js";
@@ -16,22 +16,38 @@ const app = express();
 // 🔥 CORS FIX
 // ---------------------------
 
-const whitelist = [
-  process.env.FRONTEND_URL, // e.g. https://ahmadblog.vercel.app
-  "http://localhost:5173", // Vite dev
+const allowedOrigins = [
+  "http://localhost:5173",
   "http://127.0.0.1:5173",
+  process.env.FRONTEND_URL, // main vercel frontend
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
+      // allow requests like POST /api/... from backend tools with no origin
       if (!origin) return callback(null, true);
-      if (whitelist.includes(origin)) return callback(null, true);
-      return callback(new Error("CORS blocked"), false);
+
+      // allow all vercel preview URLs
+      if (origin.endsWith(".vercel.app")) {
+        return callback(null, true);
+      }
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      console.log("❌ CORS BLOCKED ORIGIN:", origin);
+      return callback(new Error("CORS Not Allowed"), false);
     },
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
+// Prevent preflight errors
+app.options("*", cors());
 
 // ---------------------------
 // 🔥 MONGO CONNECTION
