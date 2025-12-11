@@ -127,6 +127,7 @@ export default function DashProfile() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
+        credentials: "include", // 🔥 VERY IMPORTANT
       });
       const data = await res.json();
       if (!res.ok) {
@@ -148,6 +149,7 @@ export default function DashProfile() {
       dispatch(deleteUserStart());
       const res = await fetch(`${API_URL}/api/user/delete/${currentUser._id}`, {
         method: "DELETE",
+        credentials: "include", // 🔥 VERY IMPORTANT
       });
       const data = await res.json();
       if (!res.ok) {
