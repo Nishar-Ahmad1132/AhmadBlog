@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Button, Modal, Table, TableBody, TableCell } from "flowbite-react";
 import { Link } from "react-router-dom";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
+import { API_URL } from "../config"; 
 
 export default function DashPosts() {
   const { currentUser } = useSelector((state) => state.user);
@@ -15,7 +16,7 @@ export default function DashPosts() {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await fetch(`/api/post/getposts?userId=${currentUser._id}`);
+        const res = await fetch(`${API_URL}/api/post/getposts?userId=${currentUser._id}`);
         const data = await res.json();
         if (res.ok) {
           setUserPosts(data.posts);
@@ -36,7 +37,7 @@ export default function DashPosts() {
     const startIndex = userPosts.length;
     try {
       const res = await fetch(
-        `api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
+        `${API_URL}api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
       );
       const data = await res.json();
       if (res.ok) {
@@ -54,7 +55,7 @@ export default function DashPosts() {
     setShowModal(false);
     try {
       const res = await fetch(
-        `/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
+        `${API_URL}/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
         {
           method: "DELETE",
         }

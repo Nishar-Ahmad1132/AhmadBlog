@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleTheme } from "../redux/theme/themeSlice";
 import { signoutSuccess } from "../redux/user/userSlice";
 import { useEffect, useState } from "react";
+import { API_URL } from "../config"; 
 
 import "./Header.css";
 
@@ -28,7 +29,7 @@ export default function Header() {
 
   const handleSignout = async () => {
     try {
-      const res = await fetch("/api/user/signout", {
+      const res = await fetch(`${API_URL}/api/user/signout`, {
         method: "POST",
       });
       const data = await res.json();

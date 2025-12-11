@@ -23,6 +23,8 @@ import {
   updateSuccess,
 } from "../redux/user/userSlice";
 
+import { API_URL } from "../config"; 
+
 export default function DashProfile() {
   const { currentUser, error, loading } = useSelector((state) => state.user);
   const [imageFile, setImageFile] = useState(null);
@@ -119,7 +121,7 @@ export default function DashProfile() {
     }
     try {
       dispatch(updateStart());
-      const res = await fetch(`/api/user/update/${currentUser._id}`, {
+      const res = await fetch(`${API_URL}/api/user/update/${currentUser._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -144,7 +146,7 @@ export default function DashProfile() {
     setShowModal(false);
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+      const res = await fetch(`${API_URL}/api/user/delete/${currentUser._id}`, {
         method: "DELETE",
       });
       const data = await res.json();
@@ -160,7 +162,7 @@ export default function DashProfile() {
 
   const handleSignout = async () => {
     try {
-      const res = await fetch("/api/user/signout", {
+      const res = await fetch(`${API_URL}/api/user/signout`, {
         method: "POST",
       });
       const data = await res.json();

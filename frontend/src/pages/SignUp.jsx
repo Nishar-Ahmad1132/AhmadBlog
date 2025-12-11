@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./SignUp.css";
 import OAuth from "../components/OAuth";
+import { API_URL } from "../config"; 
 
 export default function SignUp() {
   const [formData, setFormData] = useState({});
@@ -29,8 +30,9 @@ export default function SignUp() {
     try {
       setLoading(true);
       setErrorMessage(null);
-      const res = await fetch("/api/auth/signup", {
+      const res = await fetch(`${API_URL}/api/auth/signup`, {
         method: "POST",
+        credentials: "include", // ← required
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });

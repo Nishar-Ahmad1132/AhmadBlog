@@ -11,6 +11,7 @@ import {
   signInSuccess,
 } from "../redux/user/userSlice";
 import "./SignUp.css";
+import { API_URL } from "../config"; 
 
 export default function SignIn() {
   const [formData, setFormData] = useState({});
@@ -29,8 +30,9 @@ export default function SignIn() {
     }
     try {
       dispatch(signInStart());
-      const res = await fetch("/api/auth/signin", {
+      const res = await fetch(`${API_URL}/api/auth/signin`, {
         method: "POST",
+        credentials: "include", // ← required
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });

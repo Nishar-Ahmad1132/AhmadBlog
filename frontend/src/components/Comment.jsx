@@ -5,6 +5,7 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { FaThumbsUp } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import { API_URL } from "../config"; 
 
 export default function Comment({ comment, onLike, onEdit, onDelete }) {
   const [user, setUser] = useState({});
@@ -14,7 +15,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await fetch(`/api/user/${comment.userId}`);
+        const res = await fetch(`${API_URL}/api/user/${comment.userId}`);
         const data = await res.json();
         console.log("Comment user", data)
         if (res.ok) {
@@ -34,7 +35,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
 
   const handleSave = async () => {
     try {
-      const res = await fetch(`/api/comment/editComment/${comment._id}`, {
+      const res = await fetch(`${API_URL}/api/comment/editComment/${comment._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

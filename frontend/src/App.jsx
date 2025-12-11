@@ -5,22 +5,22 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import Footer from "./components/Footer";
 import Header from "./components/Header";
+import OnlyAdminPrivateRoute from "./components/OnlyAdminPrivateRoute";
+import PrivateRoute from "./components/PrivateRoute";
+import ScrollToTop from "./components/ScrollToTop";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
+import CreatePost from "./pages/CreatePost";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
+import PostPage from "./pages/PostPage";
 import Projects from "./pages/Projects";
+import Search from "./pages/Search";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import Footer from "./components/Footer";
-import PrivateRoute from "./components/PrivateRoute";
-import CreatePost from "./pages/CreatePost";
-import OnlyAdminPrivateRoute from './components/OnlyAdminPrivateRoute'
 import UpdatePost from "./pages/UpdatePost";
-import PostPage from "./pages/PostPage";
-import ScrollToTop from "./components/ScrollToTop";
-import Search from "./pages/Search";
-import Contact from "./pages/Contact";
 
 function App() {
   return (
