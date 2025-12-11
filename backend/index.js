@@ -17,7 +17,7 @@ const app = express();
 // ---------------------------
 
 const whitelist = [
-  // process.env.FRONTEND_URL, // e.g. https://ahmadblog.vercel.app
+  process.env.FRONTEND_URL, // e.g. https://ahmadblog.vercel.app
   "http://localhost:5173", // Vite dev
   "http://127.0.0.1:5173",
 ];
