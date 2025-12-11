@@ -27,6 +27,8 @@ export const create = async (req, res, next) => {
 };
 
 export const getposts = async (req, res, next) => {
+  const queryStart = Date.now();
+  const apiStart = Date.now();
   try {
     const startIndex = parseInt(req.query.startIndex) || 0;
     const limit = parseInt(req.query.limit) || 9;
@@ -61,6 +63,10 @@ export const getposts = async (req, res, next) => {
       createdAt: { $gte: oneMonthAgo },
     });
 
+    const apiEnd = Date.now();
+    console.log("API Latency:", apiEnd - apiStart, "ms");
+
+
     res.status(200).json({
       posts,
       totalPosts,
@@ -69,6 +75,9 @@ export const getposts = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
+  const queryEnd = Date.now();
+
+  console.log("MongoDB Query Time:", queryEnd - queryStart, "ms");
 };
 
 export const deletepost = async (req, res, next) => {
