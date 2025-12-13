@@ -105,13 +105,14 @@ console.log(image)
       }
       const userId=currentUser._id;
       const res = await fetch(
-        `/api/post/updatepost/${postId}/${userId}`,
+        `${API_URL}/api/post/updatepost/${postId}/${userId}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(formData),
+          credentials: "include", // 🔥 REQUIRED
         }
       );
       // console.log(data.posts[0]);
