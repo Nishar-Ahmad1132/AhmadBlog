@@ -124,7 +124,8 @@ console.log(image)
 
       if (res.ok) {
         setPublishError(null);
-        navigate(`/post/${data.slug}`);
+        // navigate(`/post/${data.slug}`);
+        navigate(`/post/${data.slug || postId}`);
       }
     } catch (error) {
       setPublishError("Something went wrong");
@@ -144,13 +145,13 @@ console.log(image)
             onChange={(e) =>
               setFormData({ ...formData, title: e.target.value })
             }
-            value={formData.title}
+            value={formData.title || ""}
           />
           <Select
             onChange={(e) =>
               setFormData({ ...formData, category: e.target.value })
             }
-            value={formData.category}
+            value={formData.category || "uncategorized"}
           >
             <option value="uncategorized">Select a category</option>
             <option value="javascript">JavaScript</option>
@@ -192,7 +193,7 @@ console.log(image)
         )}
         <ReactQuill
           theme="snow"
-          value={formData.content}
+          value={formData.content || ""}
           placeholder="Write something..."
           className="h-72 mb-12"
           required
