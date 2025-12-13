@@ -16,7 +16,12 @@ export default function DashPosts() {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await fetch(`${API_URL}/api/post/getposts?userId=${currentUser._id}`);
+        const res = await fetch(
+          `${API_URL}/api/post/getposts?userId=${currentUser._id}`,
+          {
+            credentials: "include",
+          }
+        );
         const data = await res.json();
         if (res.ok) {
           setUserPosts(data.posts);
@@ -37,7 +42,10 @@ export default function DashPosts() {
     const startIndex = userPosts.length;
     try {
       const res = await fetch(
-        `${API_URL}api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`
+        `${API_URL}/api/post/getposts?userId=${currentUser._id}&startIndex=${startIndex}`,
+        {
+          credentials: "include",
+        }
       );
       const data = await res.json();
       if (res.ok) {
@@ -51,6 +59,7 @@ export default function DashPosts() {
     }
   };
 
+
   const handleDeletePost = async () => {
     setShowModal(false);
     try {
@@ -58,6 +67,7 @@ export default function DashPosts() {
         `${API_URL}/api/post/deletepost/${postIdToDelete}/${currentUser._id}`,
         {
           method: "DELETE",
+          credentials: "include", // 🔥 REQUIRED
         }
       );
       const data = await res.json();

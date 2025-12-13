@@ -34,7 +34,10 @@ export default function DashProfile() {
   const [imageFileUploading, setImageFileUploading] = useState(false);
   const [updateUserSuccess, setUpdateUserSuccess] = useState(null);
   const [updateUserError, setUpdateUserError] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showSignoutModal, setShowSignoutModal] = useState(false);
+
   const [formData, setFormData] = useState({});
   const filePickerRef = useRef();
   const dispatch = useDispatch();
@@ -53,16 +56,6 @@ export default function DashProfile() {
   }, [imageFile]);
 
   const uploadImage = async () => {
-    // service firebase.storage {
-    //   match /b/{bucket}/o {
-    //     match /{allPaths=**} {
-    //       allow read;
-    //       allow write: if
-    //       request.resource.size < 2 * 1024 * 1024 &&
-    //       request.resource.contentType.matches('image/.*')
-    //     }
-    //   }
-    // }
     setImageFileUploading(true);
     setImageFileUploadError(null);
     const storage = getStorage(app);
@@ -89,7 +82,10 @@ export default function DashProfile() {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setImageFileUrl(downloadURL);
-          setFormData({ ...formData, profilePicture: downloadURL });
+          setFormData((prev) => ({
+            ...prev,
+            profilePicture: downloadURL,
+          }));
           setImageFileUploading(false);
         });
       }
@@ -99,14 +95,7 @@ export default function DashProfile() {
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
-  // const handleChange = (e) => {
-  //   const { id, value } = e.target;
-  //   setFormData((prevState) => ({
-  //     ...prevState,
-  //     [id]: value,
-  //   }));
-  // };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     setUpdateUserError(null);
@@ -144,7 +133,7 @@ export default function DashProfile() {
   };
 
   const handleDeleteUser = async () => {
-    setShowModal(false);
+    setShowDeleteModal(false);
     try {
       dispatch(deleteUserStart());
       const res = await fetch(`${API_URL}/api/user/delete/${currentUser._id}`, {
@@ -166,6 +155,7 @@ export default function DashProfile() {
     try {
       const res = await fetch(`${API_URL}/api/user/signout`, {
         method: "POST",
+        credentials: "include", // 🔥 REQUIRED
       });
       const data = await res.json();
       if (!res.ok) {
@@ -279,10 +269,10 @@ export default function DashProfile() {
         )}
       </form>
       <div className="text-red-500 flex justify-between mt-5">
-        <span onClick={() => setShowModal(true)} className="cursor-pointer">
+        <span onClick={() => setShowDeleteModal(true)} className="cursor-pointer">
           Delete Account
         </span>
-        <span onClick={() => setShowModal(true)} className="cursor-pointer">
+        <span onClick={() => setShowSignoutModal(true)} className="cursor-pointer">
           Sign Out
         </span>
       </div>
@@ -302,8 +292,8 @@ export default function DashProfile() {
         </Alert>
       )}
       <Modal
-        show={showModal}
-        onClose={() => setShowModal(false)}
+        show={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
         popup
         size="md"
       >
@@ -318,16 +308,17 @@ export default function DashProfile() {
               <Button color="failure" onClick={handleDeleteUser}>
                 Yes, I`m sure
               </Button>
-              <Button color="gray" onClick={() => setShowModal(false)}>
+              <Button color="gray" onClick={() => setShowDeleteModal(false)}>
                 No, cancel
               </Button>
             </div>
           </div>
         </Modal.Body>
       </Modal>
+
       <Modal
-        show={showModal}
-        onClose={() => setShowModal(false)}
+        show={showSignoutModal}
+        onClose={() => setShowSignoutModal(false)}
         popup
         size="md"
       >
@@ -342,7 +333,7 @@ export default function DashProfile() {
               <Button color="failure" onClick={handleSignout}>
                 Yes, I`m sure
               </Button>
-              <Button color="gray" onClick={() => setShowModal(false)}>
+              <Button color="gray" onClick={() => setShowSignoutModal(false)}>
                 No, cancel
               </Button>
             </div>
