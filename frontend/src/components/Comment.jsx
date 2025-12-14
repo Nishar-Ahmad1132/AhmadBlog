@@ -12,21 +12,23 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(comment.content);
   const { currentUser } = useSelector((state) => state.user);
+  
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await fetch(`${API_URL}/api/user/${comment.userId}`);
+        const res = await fetch(`${API_URL}/api/user/${comment.userId}`, {
+          credentials: "include",
+        });
         const data = await res.json();
-        console.log("Comment user", data)
-        if (res.ok) {
-          setUser(data);
-        }
+        if (res.ok) setUser(data);
       } catch (error) {
         console.log(error.message);
       }
     };
-    getUser();
-  }, [comment]);
+
+    if (comment.userId) getUser();
+  }, [comment.userId]);
+
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -35,15 +37,19 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
 
   const handleSave = async () => {
     try {
-      const res = await fetch(`${API_URL}/api/comment/editComment/${comment._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          content: editedContent,
-        }),
-      });
+      const res = await fetch(
+        `${API_URL}/api/comment/editComment/${comment._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            content: editedContent,
+          }),
+          credentials: "include", // 🔥 REQUIRED
+        }
+      );
       if (res.ok) {
         setIsEditing(false);
         onEdit(comment, editedContent);
@@ -106,7 +112,7 @@ export default function Comment({ comment, onLike, onEdit, onDelete }) {
                 onClick={() => onLike(comment._id)}
                 className={`text-gray-400 hover:text-blue-500 ${
                   currentUser &&
-                  comment.likes.includes(currentUser._id) &&
+                  comment.likes?.includes(currentUser._id) &&
                   "!text-blue-500"
                 }`}
               >

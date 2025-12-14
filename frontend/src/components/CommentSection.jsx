@@ -16,11 +16,11 @@ export default function CommentSection({ postId }) {
   const [showModal, setShowModal] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(null);
   const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (comment.length > 200) {
-      return;
-    }
+    if (!currentUser) return navigate("/sign-in");
+    if (comment.length > 200) return;
     try {
       const res = await fetch(`${API_URL}/api/comment/create`, {
         method: "POST",
@@ -32,6 +32,7 @@ export default function CommentSection({ postId }) {
           postId,
           userId: currentUser._id,
         }),
+        credentials: "include", // 🔥 REQUIRED
       });
       const data = await res.json();
       if (res.ok) {
@@ -67,6 +68,7 @@ export default function CommentSection({ postId }) {
       }
       const res = await fetch(`${API_URL}/api/comment/likeComment/${commentId}`, {
         method: "PUT",
+        credentials: "include", // 🔥 REQUIRED
       });
       if (res.ok) {
         const data = await res.json();
@@ -76,7 +78,7 @@ export default function CommentSection({ postId }) {
               ? {
                   ...comment,
                   likes: data.likes,
-                  numberOfLikes: data.likes.length,
+                  numberOfLikes: data.numberOfLikes,
                 }
               : comment
           )
@@ -102,9 +104,13 @@ export default function CommentSection({ postId }) {
         navigate("/sign-in");
         return;
       }
-      const res = await fetch(`${API_URL}/api/comment/deleteComment/${commentId}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `${API_URL}/api/comment/deleteComment/${commentId}`,
+        {
+          method: "DELETE",
+          credentials: "include", // 🔥 REQUIRED
+        }
+      );
       if (res.ok) {
         const data = await res.json();
         setComments(comments.filter((comment) => comment._id !== commentId));

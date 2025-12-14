@@ -49,6 +49,14 @@ app.use(
 // Prevent preflight errors
 app.options("*", cors());
 
+app.use(
+  cors({
+    origin: "https://ahmadblog.vercel.app",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  })
+);
+
 // ---------------------------
 // 🔥 MONGO CONNECTION
 // ---------------------------
